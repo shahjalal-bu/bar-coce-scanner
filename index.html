@@ -402,7 +402,6 @@
     </footer>
 
     <!---::::::::- End -:::::::::--->
-    <script src="https://unpkg.com/quagga@0.12.1/dist/quagga.min.js"></script>
     <script src="./assets/js/jquery-3.6.0.min.js"></script>
     <script src="./assets/js/Bootstrap.min.js"></script>
     <script src="./assets/js/main.js"></script>
@@ -488,7 +487,19 @@
               target: video,
             },
             decoder: {
-              readers: ["ean_reader"],
+              readers: [
+                "code_128_reader",
+                "ean_reader",
+                "ean_8_reader",
+                "code_39_reader",
+                "code_39_vin_reader",
+                "codabar_reader",
+                "upc_reader",
+                "upc_e_reader",
+                "i2of5_reader",
+                "2of5_reader",
+                "code_93_reader",
+              ],
             },
             locate: true,
             locator: {
