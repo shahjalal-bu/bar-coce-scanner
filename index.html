@@ -477,6 +477,7 @@
       /*---::::::::- BAR CODE SCAN FUNCTIONALITY -:::::::::---*/
       let id = 1;
       let scanning = false;
+      let scanWork = true;
 
       const startBarCodeScan = () => {
         Quagga.init(
@@ -567,7 +568,9 @@
           id++;
           Quagga.stop();
           setTimeout(() => {
-            startBarCodeScan();
+            if (scanWork) {
+              startBarCodeScan();
+            }
           }, 3000);
           scanning = false;
         });
@@ -604,6 +607,7 @@
         scanStop.classList.add("d-none");
         Quagga.stop();
         scanning = !scanning;
+        scanWork = false;
       };
       scanStart.addEventListener("click", initBarCodeScan);
       // console.log(document.getElementById("scanStop"));
