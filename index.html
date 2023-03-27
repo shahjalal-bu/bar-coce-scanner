@@ -408,15 +408,8 @@
     <!---::::::::- CUSTOM JS -:::::::::--->
     <script>
       const video = document.getElementById("screener");
-      // const bralert01 = document.querySelector(".bralert01");
-      // const bralert02 = document.querySelector(".bralert02");
       const screeningText = document.getElementById("screeningText");
       const savedata = document.querySelector(".savedata");
-
-      // const button = document.getElementById("button");
-      // const select = document.getElementById("select");]
-
-      // console.log(screeningText);
       /*---::::::::- START CAMERA -:::::::::---*/
 
       let currentStream;
@@ -590,8 +583,8 @@
           scanStop.classList.remove("d-none");
           //show laser
           document.getElementById("laser").classList.add("laser");
-          //open scan again 
-          scanWork = true
+          //open scan again
+          scanWork = true;
           startBarCodeScan();
         } catch (error) {
           console.log(error);
@@ -607,7 +600,7 @@
         scanStop.classList.add("d-none");
         //hide laser
         document.getElementById("laser").classList.remove("laser");
-        //stop quagga 
+        //stop quagga
         Quagga.stop();
         scanWork = false;
       };
