@@ -475,9 +475,10 @@
       }
 
       /*---::::::::- BAR CODE SCAN FUNCTIONALITY -:::::::::---*/
-      let id = 1;
+      let idNumber = 1;
       let scanning = false;
       let scanWork = true;
+      let firstScan = 0;
 
       const startBarCodeScan = () => {
         Quagga.init(
@@ -518,17 +519,19 @@
         );
 
         Quagga.onDetected(function (result) {
+          // console.log("prev", parseInt(firstScan));
+          // console.log("curr", parseInt(result.codeResult.code));
           Quagga.offDetected(arguments.callee);
-          var beep = document.getElementById("beep");
-          beep.play();
-          bralert02.classList.remove("d-none");
-          bralert01.classList.add("d-none");
-          // document.getElementById("laser").classList.remove("laser");
-          const div = document.createElement("div");
-          div.classList.add("barcontent");
-          div.innerHTML = ` <div class="barct_id">
+          if (
+            parseInt(firstScan) === parseInt(result.codeResult.code) 
+          ) {
+            var beep = document.getElementById("beep");
+            beep.play();
+            const div = document.createElement("div");
+            div.classList.add("barcontent");
+            div.innerHTML = ` <div class="barct_id">
             <!---id.no---->
-            <h4 class="id_bar01">${id}.</h4>
+            <h3 class="">${idNumber}.</h3>
             <!----screencode---->
             <h4>
               SKU : <span class="barcode_id">${result.codeResult.code}</span>
@@ -561,14 +564,15 @@
           </div>
         `;
 
-          savedata.append(div);
-          // setInterval(() => {
-          //   bralert02.classList.add("d-none");
-          // }, 2000);
-          id++;
-          Quagga.stop();
+            savedata.append(div);
+            idNumber = idNumber + 1;
+            Quagga.stop();
+          }
+          firstScan = parseInt(result.codeResult.code);
+
           setTimeout(() => {
             if (scanWork) {
+              console.log(scanWork);
               startBarCodeScan();
             }
           }, 3000);
@@ -610,7 +614,6 @@
         scanWork = false;
       };
       scanStart.addEventListener("click", initBarCodeScan);
-      // console.log(document.getElementById("scanStop"));
 
       document
         .getElementById("scanStop")
