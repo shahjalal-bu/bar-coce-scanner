@@ -522,7 +522,7 @@
           beep.play();
           bralert02.classList.remove("d-none");
           bralert01.classList.add("d-none");
-          document.getElementById("laser").classList.remove("laser");
+          // document.getElementById("laser").classList.remove("laser");
           const div = document.createElement("div");
           div.classList.add("barcontent");
           div.innerHTML = ` <div class="barct_id">
@@ -561,11 +561,14 @@
         `;
 
           savedata.append(div);
-          setInterval(() => {
-            bralert02.classList.add("d-none");
-          }, 2000);
+          // setInterval(() => {
+          //   bralert02.classList.add("d-none");
+          // }, 2000);
           id++;
           Quagga.stop();
+          setTimeout(() => {
+            startBarCodeScan();
+          }, 3000);
           scanning = false;
         });
       };
@@ -573,6 +576,8 @@
       const initBarCodeScan = () => {
         try {
           bralert01.classList.remove("d-none");
+          scanStart.classList.add("d-none");
+          scanStop.classList.remove("d-none");
           if (scanning === false) {
             document.getElementById("laser").classList.add("laser");
             bralert01.classList.remove("d-none");
@@ -590,7 +595,22 @@
           console.log(error);
         }
       };
+
+      const stopBarCodeScan = () => {
+        document.getElementById("laser").classList.remove("laser");
+        bralert01.classList.add("d-none");
+        bralert02.classList.add("d-none");
+        scanStart.classList.remove("d-none");
+        scanStop.classList.add("d-none");
+        Quagga.stop();
+        scanning = !scanning;
+      };
       scanStart.addEventListener("click", initBarCodeScan);
+      // console.log(document.getElementById("scanStop"));
+
+      document
+        .getElementById("scanStop")
+        .addEventListener("click", stopBarCodeScan);
 
       /*---::::::::- BAR CODE CALCULATION -:::::::::---*/
 
